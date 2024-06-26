@@ -13,7 +13,7 @@ try:
         func=pd.read_pickle
     )
 except:
-    model = pd.read_pickle("src/output/fraud_model.pkl")
+    model = pd.read_pickle("../src/output/fraud_model.pkl")
 
 
 def app(model: XGBClassifier):
