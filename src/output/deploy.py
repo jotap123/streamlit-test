@@ -1,19 +1,20 @@
+import os
 import dotenv
 import pandas as pd
 import streamlit as st
 
 from paeio import io
+from paeio.path import path_join
 from xgboost import XGBClassifier
 
 dotenv.load_dotenv()
 
-try:
-    model = io.read_any(
-        'https://testmlopaes.dfs.core.windows.net/testing/refined/deploy/fraud_model.pkl',
-        func=pd.read_pickle
+model = pd.read_pickle(
+    path_join(
+        os.path.dirname(os.path.abspath('../streamlit-test/models/fraud_model.pkl')),
+        "fraud_model.pkl"
     )
-except:
-    model = pd.read_pickle("../src/output/fraud_model.pkl")
+)
 
 
 def app(model: XGBClassifier):
