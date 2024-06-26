@@ -3,7 +3,6 @@ import dotenv
 import pandas as pd
 import streamlit as st
 
-from paeio import io
 from paeio.path import path_join
 from xgboost import XGBClassifier
 
