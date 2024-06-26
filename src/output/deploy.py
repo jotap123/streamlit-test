@@ -7,10 +7,13 @@ from xgboost import XGBClassifier
 
 dotenv.load_dotenv()
 
-model = io.read_any(
-    'https://testmlopaes.dfs.core.windows.net/testing/refined/deploy/fraud_model.pkl',
-    func=pd.read_pickle
-)
+try:
+    model = io.read_any(
+        'https://testmlopaes.dfs.core.windows.net/testing/refined/deploy/fraud_model.pkl',
+        func=pd.read_pickle
+    )
+except:
+    model = pd.read_pickle("src/output/fraud_model.pkl")
 
 
 def app(model: XGBClassifier):
