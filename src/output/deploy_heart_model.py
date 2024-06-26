@@ -31,22 +31,24 @@ def app(model: RandomForestClassifier):
     sex = st.selectbox("Sex", ["0", "1"])
     cp = st.selectbox("Chest Pain", ["0", "1"])
     trtbps = st.text_input("Blood pressure while resting", "0")
-    chol = st.selectbox("Cholesterol", "0")
+    chol = st.text_input("Cholesterol", "0")
     thalachh = st.text_input("Max heart rate", "0")
-    oldpeak = st.selectbox("Previous peak", "0")
+    exng = st.selectbox("Exercise induced angina?", ["0", "1"])
+    oldpeak = st.text_input("Previous peak", "0")
     slp = st.selectbox("Slope", ["0", "1", "2"])
     caa = st.selectbox("Number of major vessels", ["0", "1", "2", "3", "4"])
     thall = st.selectbox("Thal rate", ["0", "1", "2", "3"])
 
     if st.button("Predict"):
         data = {
-            'age': float(age),
-            'sex': float(sex),
-            'cp': float(cp),
+            'age': int(age),
+            'sex': int(sex),
+            'cp': int(cp),
             'trtbps': int(trtbps),
             'chol': int(chol),
             'thalachh': int(thalachh),
-            'oldpeak': int(oldpeak),
+            'exng': int(exng),
+            'oldpeak': float(oldpeak),
             'slp': int(slp),
             'caa': int(caa),
             'thall': int(thall),
@@ -56,8 +58,6 @@ def app(model: RandomForestClassifier):
 
         features_list = df.values.tolist()
         prediction = model.predict_proba(features_list)[:,1].round(4)*100
-
-
 
         st.success(f"Probability of heart attack: {prediction[0]}%")
 
